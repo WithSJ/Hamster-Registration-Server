@@ -16,9 +16,9 @@ def config_database(conn):
         cur = conn.cursor()
         cur.execute("""
             CREATE TABLE Accounts(
-            Username VARCHAR(25) PRIMARY KEY,
             Email VARCHAR(120) NOT NULL ,
             Fullname VARCHAR(25) NOT NULL ,
+            Username VARCHAR(25) PRIMARY KEY,
             Password VARCHAR(256) NOT NULL
             )""")
         
