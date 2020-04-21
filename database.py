@@ -16,6 +16,7 @@ def insert_command(command,values):
         conn = sqlite3.connect("Database//database.db")
         cur = conn.cursor()
         cur.execute(command,values)
+        conn.commit()
         conn.close()
     except sqlite3.Error as err:
         print(f"SQL Insert Command Error {err}")
