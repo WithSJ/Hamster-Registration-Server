@@ -16,6 +16,7 @@ def insert_command(command,values):
         conn = sqlite3.connect("Database//database.db")
         cur = conn.cursor()
         cur.execute(command,values)
+        print(command,values)
         conn.commit()
         conn.close()
     except sqlite3.Error as err:
@@ -32,8 +33,6 @@ class SignUP():
         self.Username = Username
         self.Password = Password
         
-        insert_command("""
-            INSERT INTO Accounts (Email,Fullname,Username,Password)
-            VALUES (?,?,?,?)
-        """,(self.Email,self.Fullname,self.Username,self.Password))
+        insert_command("""INSERT INTO Accounts VALUES(:Email,:Fullname,:Username,:Password)""",
+        {"Email":self.Email,"Fullname":self.Username,"Username":self.Username,"Password":self.Password})
 
