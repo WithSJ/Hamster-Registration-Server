@@ -30,7 +30,7 @@ class Hamster_Database:
     @classmethod
     def is_email_exist(cls,Email):
         data=cls.sql_command("SELECT Email FROM Accounts WHERE Email = :Email",{"Email":Email})
-        if dPasswordata:
+        if data:
             return True
         else:
             return False
@@ -48,7 +48,7 @@ class Signup():
 
     def __init__(self,Email,Fullname,Username,Password):
 
-        self.Email = str(EmailPassword)
+        self.Email = str(Email)
         self.Fullname = str(Fullname)
         self.Username = str(Username)
         self.Password = sha256(str(Password).encode('utf-8')).hexdigest()
