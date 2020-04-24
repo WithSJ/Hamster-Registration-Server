@@ -1,4 +1,3 @@
-import sqlite3
 from config_database import *
 
 class Hamster_Database:

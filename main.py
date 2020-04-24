@@ -1,5 +1,4 @@
-import socket
-from database import *
+from hamster_server.database import *
 class Start_Hamster_Server():
     """Module use to create socket and accept connections and get request from user 
     and send response to user 

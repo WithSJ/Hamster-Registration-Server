@@ -1,26 +1,14 @@
-import sqlite3,os
-
-global EMAIL_LEN
-global FULLNAME_LEN
-global USERNAME_LEN
-global PASSWORD_LEN
-global LOGIN_KEY_LEN
-global IP_ADDRESS_LEN
-
-EMAIL_LEN = 120
-FULLNAME_LEN = 25
-USERNAME_LEN = 25
-PASSWORD_LEN = 64
-LOGIN_KEY_LEN = 256
-IP_ADDRESS_LEN = 40
-
-
+from hamster_server import *
+ 
 class Config_Hamster_Database():
+   
     def __init__(self):
         self.connect_database()
 
     def connect_database(self):
-        """connect to database """
+        """ Connect to Database.
+            Create database folder and file if file not exist
+        """
         try:
             conn = sqlite3.connect("Database//database.db")
             self.config_database(conn)
@@ -31,21 +19,25 @@ class Config_Hamster_Database():
             print("Database successfully created")
 
     def config_database(self,conn):
+        """ Create Tables and data fields that required
+            Accounts Table - Email, Fullname, Username, Password_Hash
+            Logins Table - Username, Login_key, IP_Address
+        """
         try:   
             cur = conn.cursor()
             cur.execute(f"""
                 CREATE TABLE Accounts(
-                Email VARCHAR({EMAIL_LEN}) NOT NULL ,
+                Email VARCHAR({EMAIL_LEN}) NOT NULL UNIQUE ,
                 Fullname VARCHAR({FULLNAME_LEN}) NOT NULL ,
-                Username VARCHAR({USERNAME_LEN}) PRIMARY KEY,
+                Username VARCHAR({USERNAME_LEN}) PRIMARY KEY UNIQUE,
                 Password VARCHAR({PASSWORD_LEN}) NOT NULL
                 )""")
             
             cur.execute(f"""
                 CREATE TABLE Logins(
-                Username VARCHAR({USERNAME_LEN}) PRIMARY KEY,
-                Login_Key VARCHAR({LOGIN_KEY_LEN}) NOT NULL,
-                IP_Address VARCHAR({IP_ADDRESS_LEN}) NOT NULL
+                Username VARCHAR({USERNAME_LEN}) PRIMARY KEY UNIQUE,
+                Login_Key VARCHAR({LOGIN_KEY_LEN}) NOT NULL UNIQUE,
+                IP_Address VARCHAR({IP_ADDRESS_LEN}) NOT NULL UNIQUE
                 )""")
             
             conn.close()
