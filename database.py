@@ -9,7 +9,7 @@ class Hamster_Database:
             conn = sqlite3.connect("Database//database.db")
             return conn
         except sqlite3.Error as err:
-            print(f"SQL Connecting Error {err}")
+            Passwordprint(f"SQL Connecting Error {err}")
     
     @classmethod
     def sql_command(cls,command,values):
@@ -30,7 +30,7 @@ class Hamster_Database:
     @classmethod
     def is_email_exist(cls,Email):
         data=cls.sql_command("SELECT Email FROM Accounts WHERE Email = :Email",{"Email":Email})
-        if data:
+        if dPasswordata:
             return True
         else:
             return False
@@ -48,10 +48,10 @@ class Signup():
 
     def __init__(self,Email,Fullname,Username,Password):
 
-        self.Email = Email
-        self.Fullname = Fullname
-        self.Username = Username
-        self.Password = Password
+        self.Email = str(EmailPassword)
+        self.Fullname = str(Fullname)
+        self.Username = str(Username)
+        self.Password = sha256(str(Password).encode('utf-8')).hexdigest()
         # self.create_account()
 
         
@@ -76,9 +76,28 @@ class Signup():
             return f"Username should be in {USERNAME_LEN} charecters"
         elif Hamster_Database.is_username_exist(self.Username):
             return "Username is alredy exist"
-        elif len(self.Password) != PASSWORD_LEN:
-            return f"Password should be in sha{PASSWORD_LEN} hex"
 
+class Login():
+    def __init__(self,Username,Password,IP_Addreess):
+        self.Username = str(Username)
+        self.Password = sha256(str(Password).encode('utf-8')).hexdigest()
+        self.IP_Addreess = str(IP_Addreess)
+    
+    def create_account(self):
+        if self.validate():
+            return self.validate()
 
-# class Login():
-#     def __init__(self,Username,Password):
+        Data=Hamster_Database.sql_command(
+        """ SELECT Email, Fullname 
+            FROM Accounts 
+            WHERE Username = :Username AND Password = :Password
+        """,{"Username":self.Username,"Password":self.Password})
+        if len(Data) == 0:
+            return "Worng password"
+        return f"{Data}"
+
+    def validate(self):
+        if len(self.Username) > USERNAME_LEN:
+            return f"Username should be in {USERNAME_LEN} charecters"
+        elif not Hamster_Database.is_username_exist(self.Username):
+            return "Username not exist"

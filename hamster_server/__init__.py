@@ -1,4 +1,5 @@
 import sqlite3,os,socket
+from hashlib import sha256
 
 EMAIL_LEN = 120
 FULLNAME_LEN = 25
