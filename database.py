@@ -1,4 +1,4 @@
-from config_database import *
+from hamster_server import *
 
 class Hamster_Database:
 
