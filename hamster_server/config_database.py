@@ -1,16 +1,18 @@
 from hamster_server import *
  
-class Config_Hamster_Database():
-   
+class Create_Hamster_Database():
+
     def __init__(self):
         self.connect_database()
 
+    def __str__(self):
+        return "Hamster Databse : 'Database//databse.db'"
+
     def connect_database(self):
-        """ Connect to Database.
-            Create database folder and file if file not exist
+        """ Connect to Database or Create database folder and file if file not exist
         """
         try:
-            conn = sqlite3.connect("Database//database.db")
+            conn = sqlite3.connect("Database//databse.db")
             self.config_database(conn)
 
         except sqlite3.OperationalError :
@@ -44,6 +46,3 @@ class Config_Hamster_Database():
 
         except  sqlite3.OperationalError :
             print("Database already exits")
-
-if __name__ == "__main__":
-    Config_Hamster_Database()
