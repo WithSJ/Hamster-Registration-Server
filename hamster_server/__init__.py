@@ -1,3 +1,4 @@
+"""Global imports and variables"""
 import sqlite3,os,socket
 from hashlib import sha256
 

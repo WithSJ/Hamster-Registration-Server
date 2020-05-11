@@ -1,3 +1,7 @@
+"""
+Configure Database 
+Create Database folder and databsedb file its SQlite file 
+"""
 from hamster_server import *
  
 class Create_Hamster_Database():
