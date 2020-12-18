@@ -9,7 +9,7 @@ class Hamster_Database:
             conn = sqlite3.connect("Database//database.db")
             return conn
         except sqlite3.Error as err:
-            Passwordprint(f"SQL Connecting Error {err}")
+            print(f"SQL Connecting Error {err}")
     
     @classmethod
     def sql_command(cls,command,values):
